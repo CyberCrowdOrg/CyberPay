@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-4relative [%thread] %-5level  - %msg %n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoder 默认配置为PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]  %c %-5level  - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="logFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.base}/logs/cyberpay-gateway.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/cyberpay-gateway.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %c %-5level - %msg%n</Pattern>
+		</layout>
+	</appender>
+	<logger name="druid" level="INFO" />
+	<logger name="org.mybatis.spring" level="INFO" />
+	<logger name="org.apache.ibatis" level="INTO" />
+	<logger name="java.sql.PreparedStatement" level="DEBUG" />
+	<logger name="java.sql.Statement" level="DEBUG" />
+	<logger name="java.sql.Connection" level="DEBUG" />
+	<logger name="java.sql.ResultSet" level="INFO" />
+	
+	<logger name="com.alibaba" level="INFO" />
+	<logger name="org.apache.commons" level="INFO" />
+	<logger name="org.apache.zookeeper" level="INFO" />
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.quartz" level="INFO" />
+
+	<root level="INFO">
+		<!-- <appender-ref ref="console" /> -->
+		<appender-ref ref="logFile" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

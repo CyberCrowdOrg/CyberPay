@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.crypto.mapper.CryptoAddressInfoMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.crypto.model.CryptoAddressInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="crypto_symbol" jdbcType="VARCHAR" property="cryptoSymbol" />
+    <result column="network_code" jdbcType="VARCHAR" property="networkCode" />
+    <result column="address_type" jdbcType="VARCHAR" property="addressType" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="private_key" jdbcType="VARCHAR" property="privateKey" />
+    <result column="public_key" jdbcType="VARCHAR" property="publicKey" />
+    <result column="mnemonics" jdbcType="VARCHAR" property="mnemonics" />
+    <result column="wallet_file_path" jdbcType="VARCHAR" property="walletFilePath" />
+    <result column="score" jdbcType="BIGINT" property="score" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, crypto_symbol, network_code, address_type, address, private_key, public_key, 
+    mnemonics, wallet_file_path, score, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crypto_address_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from crypto_address_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.cyberpay.crypto.model.CryptoAddressInfo">
+    insert into crypto_address_info (id, crypto_symbol, network_code, 
+      address_type, address, private_key, 
+      public_key, mnemonics, wallet_file_path, 
+      score, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{cryptoSymbol,jdbcType=VARCHAR}, #{networkCode,jdbcType=VARCHAR}, 
+      #{addressType,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{privateKey,jdbcType=VARCHAR}, 
+      #{publicKey,jdbcType=VARCHAR}, #{mnemonics,jdbcType=VARCHAR}, #{walletFilePath,jdbcType=VARCHAR}, 
+      #{score,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.cyberpay.crypto.model.CryptoAddressInfo">
+    insert into crypto_address_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cryptoSymbol != null">
+        crypto_symbol,
+      </if>
+      <if test="networkCode != null">
+        network_code,
+      </if>
+      <if test="addressType != null">
+        address_type,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="privateKey != null">
+        private_key,
+      </if>
+      <if test="publicKey != null">
+        public_key,
+      </if>
+      <if test="mnemonics != null">
+        mnemonics,
+      </if>
+      <if test="walletFilePath != null">
+        wallet_file_path,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cryptoSymbol != null">
+        #{cryptoSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="networkCode != null">
+        #{networkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressType != null">
+        #{addressType,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null">
+        #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="publicKey != null">
+        #{publicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemonics != null">
+        #{mnemonics,jdbcType=VARCHAR},
+      </if>
+      <if test="walletFilePath != null">
+        #{walletFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.crypto.model.CryptoAddressInfo">
+    update crypto_address_info
+    <set>
+      <if test="cryptoSymbol != null">
+        crypto_symbol = #{cryptoSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="networkCode != null">
+        network_code = #{networkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addressType != null">
+        address_type = #{addressType,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null">
+        private_key = #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="publicKey != null">
+        public_key = #{publicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="mnemonics != null">
+        mnemonics = #{mnemonics,jdbcType=VARCHAR},
+      </if>
+      <if test="walletFilePath != null">
+        wallet_file_path = #{walletFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.crypto.model.CryptoAddressInfo">
+    update crypto_address_info
+    set crypto_symbol = #{cryptoSymbol,jdbcType=VARCHAR},
+      network_code = #{networkCode,jdbcType=VARCHAR},
+      address_type = #{addressType,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      private_key = #{privateKey,jdbcType=VARCHAR},
+      public_key = #{publicKey,jdbcType=VARCHAR},
+      mnemonics = #{mnemonics,jdbcType=VARCHAR},
+      wallet_file_path = #{walletFilePath,jdbcType=VARCHAR},
+      score = #{score,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

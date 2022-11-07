@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.crypto.mapper.BaseCryptoCoinMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.crypto.model.BaseCryptoCoin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="crypto_id" jdbcType="VARCHAR" property="cryptoId" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="coin_image" jdbcType="VARCHAR" property="coinImage" />
+    <result column="coin_icon_image" jdbcType="VARCHAR" property="coinIconImage" />
+    <result column="is_default" jdbcType="CHAR" property="isDefault" />
+    <result column="extend" jdbcType="VARCHAR" property="extend" />
+    <result column="extend2" jdbcType="VARCHAR" property="extend2" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap id="CryptoSupportResultMap" type="org.cyberpay.crypto.dto.CryptoSupportDto">
+    <result column="crypto_id" jdbcType="VARCHAR" property="cryptoId" />
+    <result column="crypto_full_name" jdbcType="VARCHAR" property="cryptoFullName" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="crypto_image" jdbcType="VARCHAR" property="cryptoImage" />
+    <result column="crypto_icon_image" jdbcType="VARCHAR" property="cryptoIconImage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, crypto_id, full_name, symbol, coin_image, coin_icon_image, is_default, extend, 
+    extend2, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_crypto_coin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_crypto_coin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.crypto.model.BaseCryptoCoin" useGeneratedKeys="true">
+    insert into base_crypto_coin (crypto_id, full_name, symbol, 
+      coin_image, coin_icon_image, is_default, 
+      extend, extend2, create_time, 
+      update_time)
+    values (#{cryptoId,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{symbol,jdbcType=VARCHAR}, 
+      #{coinImage,jdbcType=VARCHAR}, #{coinIconImage,jdbcType=VARCHAR}, #{isDefault,jdbcType=CHAR}, 
+      #{extend,jdbcType=VARCHAR}, #{extend2,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.crypto.model.BaseCryptoCoin" useGeneratedKeys="true">
+    insert into base_crypto_coin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cryptoId != null">
+        crypto_id,
+      </if>
+      <if test="fullName != null">
+        full_name,
+      </if>
+      <if test="symbol != null">
+        symbol,
+      </if>
+      <if test="coinImage != null">
+        coin_image,
+      </if>
+      <if test="coinIconImage != null">
+        coin_icon_image,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="extend != null">
+        extend,
+      </if>
+      <if test="extend2 != null">
+        extend2,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cryptoId != null">
+        #{cryptoId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="symbol != null">
+        #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="coinImage != null">
+        #{coinImage,jdbcType=VARCHAR},
+      </if>
+      <if test="coinIconImage != null">
+        #{coinIconImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=CHAR},
+      </if>
+      <if test="extend != null">
+        #{extend,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.crypto.model.BaseCryptoCoin">
+    update base_crypto_coin
+    <set>
+      <if test="cryptoId != null">
+        crypto_id = #{cryptoId,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null">
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="symbol != null">
+        symbol = #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="coinImage != null">
+        coin_image = #{coinImage,jdbcType=VARCHAR},
+      </if>
+      <if test="coinIconImage != null">
+        coin_icon_image = #{coinIconImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=CHAR},
+      </if>
+      <if test="extend != null">
+        extend = #{extend,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.crypto.model.BaseCryptoCoin">
+    update base_crypto_coin
+    set crypto_id = #{cryptoId,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      symbol = #{symbol,jdbcType=VARCHAR},
+      coin_image = #{coinImage,jdbcType=VARCHAR},
+      coin_icon_image = #{coinIconImage,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=CHAR},
+      extend = #{extend,jdbcType=VARCHAR},
+      extend2 = #{extend2,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectBasicExchangeRateCoinList" resultType="java.util.Map">
+    SELECT
+      crypto_id AS cryptoId,
+      symbol AS cryptoSymbol
+    FROM
+      base_crypto_coin
+
+  </select>
+  <select id="queryCryptoSupportList" resultMap="CryptoSupportResultMap">
+    SELECT
+      crypto_id,
+      crypto_full_name,
+      symbol,
+      crypto_image,
+      crypto_icon_image
+    FROM
+      base_crypto_coin
+    WHERE
+      is_available = '1'
+  </select>
+  <select id="findCryptoCoin" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from base_crypto_coin
+    <where>
+      <if test="param1 != null and '' != param1 ">
+        AND crypto_id = #{param1}
+      </if>
+      <if test="param2 != null and '' != param2 ">
+        AND symbol = #{param2}
+      </if>
+    </where>
+  </select>
+</mapper>

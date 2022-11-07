@@ -1,0 +1,144 @@
+spring:
+  application:
+    name: cyberpay-crypto-web
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/cyberpay-crypto?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+      username: root
+      password: password
+      # 连接池的配置信息
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j,config
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/"
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+      stat-view-servlet:
+        enabled: true
+        url-pattern: "/druid/*"
+        login-username: admin  # 登录账号
+        login-password: CyberPay&^20220818!@ # 登录密码
+        reset-enable: false
+        allow: ""  # 白名单 表示所有
+  redis:
+    host: localhost
+    port: 6379
+    password: password
+    lettuce:
+      pool:
+        max-idle: 5
+        max-active: 50
+        max-wait: 1000
+        enabled: true
+    database: 0
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+        group: CYBERPAY_GROUP
+        server-addr: localhost:8848
+      discovery:
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+        server-addr: localhost:8848
+        group: CYBERPAY_GROUP
+        enabled: true
+
+
+#    sentinel:
+#      #监控地址配置
+#      transport:
+#        port: 8083
+#        dashboard: localhost:8080
+##      #sentinel链路限流模式需要使用此配置
+##      filter:
+##        enabled: false
+#      #sentinel规则持久化到nacos
+#      datasource:
+#        flow-rules:
+#          nacos:
+#            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#            data-id: ${spring.application.name}-sentinel-flwo-rules
+#            group-id: ${spring.cloud.nacos.discovery.group}
+#            data-type: json
+#            rule-type: flow
+#        degrade-rules:
+#          nacos:
+#            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#            data-id: ${spring.application.name}-sentinel-degrade-rules
+#            group-id: ${spring.cloud.nacos.discovery.group}
+#            data-type: json
+#            rule-type: degrade
+#
+##开启feign对sentinel的支持
+#feign:
+#  sentinel:
+#    enabled: true
+
+#mq配置
+  activemq:
+    broker-url: failover:(tcp://localhost:61616)?Randomize=false
+    password: password
+    user: user
+    pool:
+      enabled: false
+    send-timeout: 3000
+#汇率更新请求地址
+fiatcoin:
+  rate-query-url: https://api.apilayer.com/exchangerates_data/latest?base={0}&symbols={1}
+  api-key: q4I9sDj5p0nwOTK8sFkgOSlUgFwlZLuI
+cryptocoin:
+  cyptocompare-rate-query-url: https://min-api.cryptocompare.com/data/pricemulti?fsyms={0}&tsyms={1}&api_key=01beed70ef824c04b74e80107ad986ecb5e74e2641850f0da7ad433cf51ebe7c
+
+#区块链节点
+node:
+  get-block:
+    bitcoin-url: https://btc.getblock.io/testnet/
+    ethereum-url: https://eth.getblock.io/goerli/
+    bitcoin-cash-url:
+    litcoin-url:
+    binance-bsc-url: https://bsc.getblock.io/testnet/
+    api-key:
+  gas-limit:
+    ethereum: 3000000
+  balance-query:
+    bitcoin: https://api.bitcore.io/api/BTC/testnet/address/{0}/balance
+    bitcoin-cash: https://api.bitcore.io/api/BCH/testnet/address/{0}/balance
+    litecoin: https://api.bitcore.io/api/LTC/testnet/address/{0}/balance
+  feerate-query:
+    bitcoin: https://api.bitcore.io/api/BTC/testnet/fee/50
+    bitcoin-cash: https://api.bitcore.io/api/BCH/testnet/fee/50
+    litecoin: https://api.bitcore.io/api/LTC/testnet/fee/50
+#未花费列表查询API
+unspent:
+  bitcoin: https://api.bitcore.io/api/BTC/testnet/address/{0}?unspent=true
+  bitcoin-cash: https://api.bitcore.io/api/BCH/testnet/address/{0}?unspent=true
+  litecoin: https://api.bitcore.io/api/LTC/testnet/address/{0}?unspent=true
+
+#钱包文件地址
+wallet:
+  file-path:
+    ethereum: /Users/gengchaonan/wallet-file/ethereum/

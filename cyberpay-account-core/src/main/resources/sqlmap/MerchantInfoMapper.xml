@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.account.mapper.MerchantInfoMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.account.model.MerchantInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="contact_email" jdbcType="VARCHAR" property="contactEmail" />
+    <result column="contact_address" jdbcType="VARCHAR" property="contactAddress" />
+    <result column="private_key" jdbcType="VARCHAR" property="privateKey" />
+    <result column="public_key" jdbcType="VARCHAR" property="publicKey" />
+    <result column="merchant_status" jdbcType="CHAR" property="merchantStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, merchant_name, contact_name, contact_phone, contact_email, contact_address, 
+    private_key, public_key, merchant_status, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from merchant_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.account.model.MerchantInfo" useGeneratedKeys="true">
+    insert into merchant_info (merchant_id, merchant_name, contact_name, 
+      contact_phone, contact_email, contact_address, 
+      private_key, public_key, merchant_status, 
+      create_time, update_time)
+    values (#{merchantId,jdbcType=VARCHAR}, #{merchantName,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, 
+      #{contactPhone,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR}, 
+      #{privateKey,jdbcType=VARCHAR}, #{publicKey,jdbcType=VARCHAR}, #{merchantStatus,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.account.model.MerchantInfo" useGeneratedKeys="true">
+    insert into merchant_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="merchantName != null">
+        merchant_name,
+      </if>
+      <if test="contactName != null">
+        contact_name,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="contactEmail != null">
+        contact_email,
+      </if>
+      <if test="contactAddress != null">
+        contact_address,
+      </if>
+      <if test="privateKey != null">
+        private_key,
+      </if>
+      <if test="publicKey != null">
+        public_key,
+      </if>
+      <if test="merchantStatus != null">
+        merchant_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null">
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null">
+        #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null">
+        #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null">
+        #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="publicKey != null">
+        #{publicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantStatus != null">
+        #{merchantStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.account.model.MerchantInfo">
+    update merchant_info
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null">
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null">
+        contact_email = #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null">
+        contact_address = #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="privateKey != null">
+        private_key = #{privateKey,jdbcType=VARCHAR},
+      </if>
+      <if test="publicKey != null">
+        public_key = #{publicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantStatus != null">
+        merchant_status = #{merchantStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.account.model.MerchantInfo">
+    update merchant_info
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      merchant_name = #{merchantName,jdbcType=VARCHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      contact_email = #{contactEmail,jdbcType=VARCHAR},
+      contact_address = #{contactAddress,jdbcType=VARCHAR},
+      private_key = #{privateKey,jdbcType=VARCHAR},
+      public_key = #{publicKey,jdbcType=VARCHAR},
+      merchant_status = #{merchantStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryMerchant" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from merchant_info
+    where merchant_id = #{merchantId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryMerchantPublicKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select public_key from merchant_info
+    where merchant_id = #{merchantId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryMerchantStatus" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select merchant_status from merchant_info
+    where merchant_id = #{merchantId,jdbcType=VARCHAR}
+  </select>
+</mapper>

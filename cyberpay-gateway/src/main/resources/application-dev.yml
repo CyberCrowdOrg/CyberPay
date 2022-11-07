@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: cyberpay-trade-web
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+        group: CYBERPAY_GROUP
+        server-addr: localhost:8848
+      discovery:
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+        server-addr: localhost:8848
+        group: CYBERPAY_GROUP
+        enabled: true
+
+
+#    sentinel:
+#      #监控地址配置
+#      transport:
+#        port: 8083
+#        dashboard: localhost:8080
+##      #sentinel链路限流模式需要使用此配置
+##      filter:
+##        enabled: false
+#      #sentinel规则持久化到nacos
+#      datasource:
+#        flow-rules:
+#          nacos:
+#            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#            data-id: ${spring.application.name}-sentinel-flwo-rules
+#            group-id: ${spring.cloud.nacos.discovery.group}
+#            data-type: json
+#            rule-type: flow
+#        degrade-rules:
+#          nacos:
+#            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+#            data-id: ${spring.application.name}-sentinel-degrade-rules
+#            group-id: ${spring.cloud.nacos.discovery.group}
+#            data-type: json
+#            rule-type: degrade
+#
+##开启feign对sentinel的支持
+#feign:
+#  sentinel:
+#    enabled: true
+
+  #mq配置
+  activemq:
+    broker-url: failover:(tcp://localhost:61616)?Randomize=false
+    password: password
+    user: user
+    pool:
+      enabled: false
+    send-timeout: 3000

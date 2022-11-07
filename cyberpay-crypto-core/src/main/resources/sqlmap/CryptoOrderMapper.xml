@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.crypto.mapper.CryptoOrderMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.crypto.model.CryptoOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="biz_order_no" jdbcType="VARCHAR" property="bizOrderNo" />
+    <result column="org_biz_order_no" jdbcType="VARCHAR" property="orgBizOrderNo" />
+    <result column="biz_type" jdbcType="VARCHAR" property="bizType" />
+    <result column="biz_flow_no" jdbcType="VARCHAR" property="bizFlowNo" />
+    <result column="order_coin" jdbcType="VARCHAR" property="orderCoin" />
+    <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
+    <result column="receive_network_code" jdbcType="VARCHAR" property="receiveNetworkCode" />
+    <result column="receive_coin_type" jdbcType="VARCHAR" property="receiveCoinType" />
+    <result column="receive_coin" jdbcType="VARCHAR" property="receiveCoin" />
+    <result column="receive_amount" jdbcType="DECIMAL" property="receiveAmount" />
+    <result column="receipt_amount" jdbcType="DECIMAL" property="receiptAmount" />
+    <result column="diff_receive_amount" jdbcType="DECIMAL" property="diffReceiveAmount" />
+    <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="redirect_url" jdbcType="VARCHAR" property="redirectUrl" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="close_time" jdbcType="TIMESTAMP" property="closeTime" />
+    <result column="check_status" jdbcType="VARCHAR" property="checkStatus" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, biz_order_no, org_biz_order_no, biz_type, biz_flow_no, order_coin, order_amount, 
+    receive_network_code, receive_coin_type, receive_coin, receive_amount, receipt_amount, 
+    diff_receive_amount, receive_address, `status`,redirect_url, success_time, close_time, check_status,
+    check_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crypto_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from crypto_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.crypto.model.CryptoOrder" useGeneratedKeys="true">
+    insert into crypto_order (biz_order_no, org_biz_order_no, biz_type, 
+      biz_flow_no, order_coin, order_amount, 
+      receive_network_code, receive_coin_type, receive_coin, 
+      receive_amount, receipt_amount, diff_receive_amount, 
+      receive_address, `status`,redirect_url, success_time,
+      close_time, check_status, check_time, 
+      create_time, update_time)
+    values (#{bizOrderNo,jdbcType=VARCHAR}, #{orgBizOrderNo,jdbcType=VARCHAR}, #{bizType,jdbcType=VARCHAR}, 
+      #{bizFlowNo,jdbcType=VARCHAR}, #{orderCoin,jdbcType=VARCHAR}, #{orderAmount,jdbcType=DECIMAL}, 
+      #{receiveNetworkCode,jdbcType=VARCHAR}, #{receiveCoinType,jdbcType=VARCHAR}, #{receiveCoin,jdbcType=VARCHAR}, 
+      #{receiveAmount,jdbcType=DECIMAL}, #{receiptAmount,jdbcType=DECIMAL}, #{diffReceiveAmount,jdbcType=DECIMAL},
+      #{receiveAddress,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},#{redirectUrl,jdbcType=VARCHAR} #{successTime,jdbcType=TIMESTAMP},
+      #{closeTime,jdbcType=TIMESTAMP}, #{checkStatus,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.crypto.model.CryptoOrder" useGeneratedKeys="true">
+    insert into crypto_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bizOrderNo != null">
+        biz_order_no,
+      </if>
+      <if test="orgBizOrderNo != null">
+        org_biz_order_no,
+      </if>
+      <if test="bizType != null">
+        biz_type,
+      </if>
+      <if test="bizFlowNo != null">
+        biz_flow_no,
+      </if>
+      <if test="orderCoin != null">
+        order_coin,
+      </if>
+      <if test="orderAmount != null">
+        order_amount,
+      </if>
+      <if test="receiveNetworkCode != null">
+        receive_network_code,
+      </if>
+      <if test="receiveCoinType != null">
+        receive_coin_type,
+      </if>
+      <if test="receiveCoin != null">
+        receive_coin,
+      </if>
+      <if test="receiveAmount != null">
+        receive_amount,
+      </if>
+      <if test="receiptAmount != null">
+        receipt_amount,
+      </if>
+      <if test="diffReceiveAmount != null">
+        diff_receive_amount,
+      </if>
+      <if test="receiveAddress != null">
+        receive_address,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="redirectUrl != null">
+        redirect_url,
+      </if>
+      <if test="successTime != null">
+        success_time,
+      </if>
+      <if test="closeTime != null">
+        close_time,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bizOrderNo != null">
+        #{bizOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgBizOrderNo != null">
+        #{orgBizOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        #{bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="bizFlowNo != null">
+        #{bizFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCoin != null">
+        #{orderCoin,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveNetworkCode != null">
+        #{receiveNetworkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCoinType != null">
+        #{receiveCoinType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCoin != null">
+        #{receiveCoin,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAmount != null">
+        #{receiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptAmount != null">
+        #{receiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="diffReceiveAmount != null">
+        #{diffReceiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveAddress != null">
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null">
+        #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="successTime != null">
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.crypto.model.CryptoOrder">
+    update crypto_order
+    <set>
+      <if test="bizOrderNo != null">
+        biz_order_no = #{bizOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgBizOrderNo != null">
+        org_biz_order_no = #{orgBizOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null">
+        biz_type = #{bizType,jdbcType=VARCHAR},
+      </if>
+      <if test="bizFlowNo != null">
+        biz_flow_no = #{bizFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCoin != null">
+        order_coin = #{orderCoin,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmount != null">
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveNetworkCode != null">
+        receive_network_code = #{receiveNetworkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCoinType != null">
+        receive_coin_type = #{receiveCoinType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveCoin != null">
+        receive_coin = #{receiveCoin,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAmount != null">
+        receive_amount = #{receiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptAmount != null">
+        receipt_amount = #{receiptAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="diffReceiveAmount != null">
+        diff_receive_amount = #{diffReceiveAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveAddress != null">
+        receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="redirectUrl != null">
+        redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.crypto.model.CryptoOrder">
+    update crypto_order
+    set biz_order_no = #{bizOrderNo,jdbcType=VARCHAR},
+      org_biz_order_no = #{orgBizOrderNo,jdbcType=VARCHAR},
+      biz_type = #{bizType,jdbcType=VARCHAR},
+      biz_flow_no = #{bizFlowNo,jdbcType=VARCHAR},
+      order_coin = #{orderCoin,jdbcType=VARCHAR},
+      order_amount = #{orderAmount,jdbcType=DECIMAL},
+      receive_network_code = #{receiveNetworkCode,jdbcType=VARCHAR},
+      receive_coin_type = #{receiveCoinType,jdbcType=VARCHAR},
+      receive_coin = #{receiveCoin,jdbcType=VARCHAR},
+      receive_amount = #{receiveAmount,jdbcType=DECIMAL},
+      receipt_amount = #{receiptAmount,jdbcType=DECIMAL},
+      diff_receive_amount = #{diffReceiveAmount,jdbcType=DECIMAL},
+      receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      redirect_url = #{redirectUrl,jdbcType=VARCHAR},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      check_status = #{checkStatus,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findOrder" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from crypto_order where biz_order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findRefundOrderByOrgOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from crypto_order where org_order_no = #{orgOrderNo,jdbcType=VARCHAR} and biz_type = 'refund'
+  </select>
+
+  <select id="selectCryptoOrder" parameterType="org.cyberpay.crypto.model.CryptoOrder" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from crypto_order
+    <where>
+      <if test="bizOrderNo != null">
+        and biz_order_no = #{bizOrderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orgBizOrderNo != null">
+        and org_biz_order_no = #{orgBizOrderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="bizType != null">
+        and biz_type = #{bizType,jdbcType=VARCHAR}
+      </if>
+      <if test="bizFlowNo != null">
+        and biz_flow_no = #{bizFlowNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orderCoin != null">
+        and order_coin = #{orderCoin,jdbcType=VARCHAR}
+      </if>
+      <if test="orderAmount != null">
+        and order_amount = #{orderAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="receiveNetworkCode != null">
+        and receive_network_code = #{receiveNetworkCode,jdbcType=VARCHAR}
+      </if>
+      <if test="receiveCoinType != null">
+        and receive_coin_type = #{receiveCoinType,jdbcType=VARCHAR}
+      </if>
+      <if test="receiveCoin != null">
+        and receive_coin = #{receiveCoin,jdbcType=VARCHAR}
+      </if>
+      <if test="receiveAmount != null">
+        and receive_amount = #{receiveAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="receiptAmount != null">
+        and receipt_amount = #{receiptAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="diffReceiveAmount != null">
+        and diff_receive_amount = #{diffReceiveAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="receiveAddress != null">
+        and receive_address = #{receiveAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        and `status` = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="redirectUrl != null">
+        and redirect_url = #{redirectUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="successTime != null">
+        and success_time = #{successTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="closeTime != null">
+        and close_time = #{closeTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="checkStatus != null">
+        and check_status = #{checkStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="checkTime != null">
+        and check_time = #{checkTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryPendingCloseOrders" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"/>
+    from crypto_order
+    where
+        receive_network_code = #{networkCode,jdbcType=VARCHAR}
+    and receive_coin = #{coin,jdbcType=VARCHAR}
+    and create_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+  </select>
+</mapper>

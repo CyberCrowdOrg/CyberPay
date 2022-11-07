@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.crypto.mapper.BlockChainDataMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.crypto.model.BlockChainData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cyrpto_symbol" jdbcType="VARCHAR" property="cyrptoSymbol" />
+    <result column="network_code" jdbcType="VARCHAR" property="networkCode" />
+    <result column="trans_hash" jdbcType="VARCHAR" property="transHash" />
+    <result column="block_hash" jdbcType="VARCHAR" property="blockHash" />
+    <result column="block_number" jdbcType="BIGINT" property="blockNumber" />
+    <result column="trans_amount" jdbcType="DECIMAL" property="transAmount" />
+    <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="check_status" jdbcType="CHAR" property="checkStatus" />
+    <result column="check_no" jdbcType="VARCHAR" property="checkNo" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cyrpto_symbol, network_code, trans_hash, block_hash, block_number, trans_amount, 
+    receive_address, check_status, check_no, check_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from block_chain_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from block_chain_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.cyberpay.crypto.model.BlockChainData">
+    insert into block_chain_data (id, cyrpto_symbol, network_code, 
+      trans_hash, block_hash, block_number, 
+      trans_amount, receive_address, check_status, 
+      check_no, check_time, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{cyrptoSymbol,jdbcType=VARCHAR}, #{networkCode,jdbcType=VARCHAR}, 
+      #{transHash,jdbcType=VARCHAR}, #{blockHash,jdbcType=VARCHAR}, #{blockNumber,jdbcType=BIGINT}, 
+      #{transAmount,jdbcType=DECIMAL}, #{receiveAddress,jdbcType=VARCHAR}, #{checkStatus,jdbcType=CHAR}, 
+      #{checkNo,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.cyberpay.crypto.model.BlockChainData">
+    insert into block_chain_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cyrptoSymbol != null">
+        cyrpto_symbol,
+      </if>
+      <if test="networkCode != null">
+        network_code,
+      </if>
+      <if test="transHash != null">
+        trans_hash,
+      </if>
+      <if test="blockHash != null">
+        block_hash,
+      </if>
+      <if test="blockNumber != null">
+        block_number,
+      </if>
+      <if test="transAmount != null">
+        trans_amount,
+      </if>
+      <if test="receiveAddress != null">
+        receive_address,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="checkNo != null">
+        check_no,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cyrptoSymbol != null">
+        #{cyrptoSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="networkCode != null">
+        #{networkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="transHash != null">
+        #{transHash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockHash != null">
+        #{blockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockNumber != null">
+        #{blockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="transAmount != null">
+        #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveAddress != null">
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="checkNo != null">
+        #{checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.crypto.model.BlockChainData">
+    update block_chain_data
+    <set>
+      <if test="cyrptoSymbol != null">
+        cyrpto_symbol = #{cyrptoSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="networkCode != null">
+        network_code = #{networkCode,jdbcType=VARCHAR},
+      </if>
+      <if test="transHash != null">
+        trans_hash = #{transHash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockHash != null">
+        block_hash = #{blockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockNumber != null">
+        block_number = #{blockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="transAmount != null">
+        trans_amount = #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="receiveAddress != null">
+        receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="checkNo != null">
+        check_no = #{checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.crypto.model.BlockChainData">
+    update block_chain_data
+    set cyrpto_symbol = #{cyrptoSymbol,jdbcType=VARCHAR},
+      network_code = #{networkCode,jdbcType=VARCHAR},
+      trans_hash = #{transHash,jdbcType=VARCHAR},
+      block_hash = #{blockHash,jdbcType=VARCHAR},
+      block_number = #{blockNumber,jdbcType=BIGINT},
+      trans_amount = #{transAmount,jdbcType=DECIMAL},
+      receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      check_status = #{checkStatus,jdbcType=CHAR},
+      check_no = #{checkNo,jdbcType=VARCHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

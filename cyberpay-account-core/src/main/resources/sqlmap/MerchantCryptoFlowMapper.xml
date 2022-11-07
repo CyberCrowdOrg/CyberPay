@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.account.mapper.MerchantCryptoFlowMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.account.model.MerchantCryptoFlow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="account_id" jdbcType="BIGINT" property="accountId" />
+    <result column="lable" jdbcType="CHAR" property="lable" />
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="trade_flow_no" jdbcType="VARCHAR" property="tradeFlowNo" />
+    <result column="biz_flow_no" jdbcType="VARCHAR" property="bizFlowNo" />
+    <result column="opening_balance" jdbcType="DECIMAL" property="openingBalance" />
+    <result column="business_amount" jdbcType="DECIMAL" property="businessAmount" />
+    <result column="ending_balance" jdbcType="DECIMAL" property="endingBalance" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="check_no" jdbcType="VARCHAR" property="checkNo" />
+    <result column="check_status" jdbcType="CHAR" property="checkStatus" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, account_id, lable, coin_name, trade_flow_no, biz_flow_no, opening_balance, 
+    business_amount, ending_balance, `status`, check_no, check_status, check_time, create_time, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_crypto_flow
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from merchant_crypto_flow
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.account.model.MerchantCryptoFlow" useGeneratedKeys="true">
+    insert into merchant_crypto_flow (merchant_id, account_id, lable, 
+      coin_name, trade_flow_no, biz_flow_no, 
+      opening_balance, business_amount, ending_balance, 
+      `status`, check_no, check_status, 
+      check_time, create_time, update_time
+      )
+    values (#{merchantId,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT}, #{lable,jdbcType=CHAR}, 
+      #{coinName,jdbcType=VARCHAR}, #{tradeFlowNo,jdbcType=VARCHAR}, #{bizFlowNo,jdbcType=VARCHAR}, 
+      #{openingBalance,jdbcType=DECIMAL}, #{businessAmount,jdbcType=DECIMAL}, #{endingBalance,jdbcType=DECIMAL}, 
+      #{status,jdbcType=CHAR}, #{checkNo,jdbcType=VARCHAR}, #{checkStatus,jdbcType=CHAR}, 
+      #{checkTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.cyberpay.account.model.MerchantCryptoFlow" useGeneratedKeys="true">
+    insert into merchant_crypto_flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="lable != null">
+        lable,
+      </if>
+      <if test="coinName != null">
+        coin_name,
+      </if>
+      <if test="tradeFlowNo != null">
+        trade_flow_no,
+      </if>
+      <if test="bizFlowNo != null">
+        biz_flow_no,
+      </if>
+      <if test="openingBalance != null">
+        opening_balance,
+      </if>
+      <if test="businessAmount != null">
+        business_amount,
+      </if>
+      <if test="endingBalance != null">
+        ending_balance,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="checkNo != null">
+        check_no,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="checkTime != null">
+        check_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="lable != null">
+        #{lable,jdbcType=CHAR},
+      </if>
+      <if test="coinName != null">
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeFlowNo != null">
+        #{tradeFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizFlowNo != null">
+        #{bizFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBalance != null">
+        #{openingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessAmount != null">
+        #{businessAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="endingBalance != null">
+        #{endingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="checkNo != null">
+        #{checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="checkTime != null">
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.account.model.MerchantCryptoFlow">
+    update merchant_crypto_flow
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=BIGINT},
+      </if>
+      <if test="lable != null">
+        lable = #{lable,jdbcType=CHAR},
+      </if>
+      <if test="coinName != null">
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeFlowNo != null">
+        trade_flow_no = #{tradeFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bizFlowNo != null">
+        biz_flow_no = #{bizFlowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="openingBalance != null">
+        opening_balance = #{openingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="businessAmount != null">
+        business_amount = #{businessAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="endingBalance != null">
+        ending_balance = #{endingBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="checkNo != null">
+        check_no = #{checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=CHAR},
+      </if>
+      <if test="checkTime != null">
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.account.model.MerchantCryptoFlow">
+    update merchant_crypto_flow
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=BIGINT},
+      lable = #{lable,jdbcType=CHAR},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      trade_flow_no = #{tradeFlowNo,jdbcType=VARCHAR},
+      biz_flow_no = #{bizFlowNo,jdbcType=VARCHAR},
+      opening_balance = #{openingBalance,jdbcType=DECIMAL},
+      business_amount = #{businessAmount,jdbcType=DECIMAL},
+      ending_balance = #{endingBalance,jdbcType=DECIMAL},
+      `status` = #{status,jdbcType=CHAR},
+      check_no = #{checkNo,jdbcType=VARCHAR},
+      check_status = #{checkStatus,jdbcType=CHAR},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

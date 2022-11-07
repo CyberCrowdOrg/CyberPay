@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.trade.mapper.MerchantFeeConfigMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.trade.model.MerchantFeeConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="coin_type" jdbcType="VARCHAR" property="coinType" />
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="channel_code" jdbcType="VARCHAR" property="channelCode" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="fee_type" jdbcType="VARCHAR" property="feeType" />
+    <result column="fee_method" jdbcType="VARCHAR" property="feeMethod" />
+    <result column="fee_rate" jdbcType="DECIMAL" property="feeRate" />
+    <result column="fee_fixed" jdbcType="DECIMAL" property="feeFixed" />
+    <result column="fee_status" jdbcType="CHAR" property="feeStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, coin_type, coin_name, channel_code, channel_name, fee_type, fee_method, 
+    fee_rate, fee_fixed, fee_status, create_time, update_time, update_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_fee_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from merchant_fee_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.cyberpay.trade.model.MerchantFeeConfig">
+    insert into merchant_fee_config (id, merchant_id, coin_type, 
+      coin_name, channel_code, channel_name, 
+      fee_type, fee_method, fee_rate, 
+      fee_fixed, fee_status, create_time, 
+      update_time, update_user)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=VARCHAR}, #{coinType,jdbcType=VARCHAR}, 
+      #{coinName,jdbcType=VARCHAR}, #{channelCode,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, 
+      #{feeType,jdbcType=VARCHAR}, #{feeMethod,jdbcType=VARCHAR}, #{feeRate,jdbcType=DECIMAL}, 
+      #{feeFixed,jdbcType=DECIMAL}, #{feeStatus,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.cyberpay.trade.model.MerchantFeeConfig">
+    insert into merchant_fee_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="coinType != null">
+        coin_type,
+      </if>
+      <if test="coinName != null">
+        coin_name,
+      </if>
+      <if test="channelCode != null">
+        channel_code,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="feeType != null">
+        fee_type,
+      </if>
+      <if test="feeMethod != null">
+        fee_method,
+      </if>
+      <if test="feeRate != null">
+        fee_rate,
+      </if>
+      <if test="feeFixed != null">
+        fee_fixed,
+      </if>
+      <if test="feeStatus != null">
+        fee_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null">
+        #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null">
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null">
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null">
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeMethod != null">
+        #{feeMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="feeRate != null">
+        #{feeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="feeFixed != null">
+        #{feeFixed,jdbcType=DECIMAL},
+      </if>
+      <if test="feeStatus != null">
+        #{feeStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.trade.model.MerchantFeeConfig">
+    update merchant_fee_config
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null">
+        coin_type = #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null">
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelCode != null">
+        channel_code = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="feeType != null">
+        fee_type = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="feeMethod != null">
+        fee_method = #{feeMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="feeRate != null">
+        fee_rate = #{feeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="feeFixed != null">
+        fee_fixed = #{feeFixed,jdbcType=DECIMAL},
+      </if>
+      <if test="feeStatus != null">
+        fee_status = #{feeStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.trade.model.MerchantFeeConfig">
+    update merchant_fee_config
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      coin_type = #{coinType,jdbcType=VARCHAR},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      channel_code = #{channelCode,jdbcType=VARCHAR},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      fee_type = #{feeType,jdbcType=VARCHAR},
+      fee_method = #{feeMethod,jdbcType=VARCHAR},
+      fee_rate = #{feeRate,jdbcType=DECIMAL},
+      fee_fixed = #{feeFixed,jdbcType=DECIMAL},
+      fee_status = #{feeStatus,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findMerchantFee" parameterType="org.cyberpay.trade.model.MerchantFeeConfig" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from merchant_fee_config
+    <where>
+      <if test="merchantId != null">
+        and merchant_id = #{merchantId,jdbcType=VARCHAR}
+      </if>
+      <if test="coinType != null">
+        and coin_type = #{coinType,jdbcType=VARCHAR}
+      </if>
+      <if test="coinName != null">
+        and coin_name = #{coinName,jdbcType=VARCHAR}
+      </if>
+      <if test="channelCode != null">
+        and channel_code = #{channelCode,jdbcType=VARCHAR}
+      </if>
+      <if test="channelName != null">
+        and channel_name = #{channelName,jdbcType=VARCHAR}
+      </if>
+      <if test="feeType != null">
+        and fee_type = #{feeType,jdbcType=VARCHAR}
+      </if>
+      <if test="feeMethod != null">
+        and fee_method = #{feeMethod,jdbcType=VARCHAR}
+      </if>
+      <if test="feeRate != null">
+        and fee_rate = #{feeRate,jdbcType=DECIMAL}
+      </if>
+      <if test="feeFixed != null">
+        and fee_fixed = #{feeFixed,jdbcType=DECIMAL}
+      </if>
+      <if test="feeStatus != null">
+        and fee_status = #{feeStatus,jdbcType=CHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateUser != null">
+        and update_user = #{updateUser,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+</mapper>

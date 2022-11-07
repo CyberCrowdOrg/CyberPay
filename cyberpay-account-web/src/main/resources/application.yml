@@ -1,0 +1,23 @@
+server:
+  port: 9202
+  servlet:
+    context-path: /cyberpay-account-web
+
+spring:
+  profiles:
+    active: dev
+  jmx:
+    default-domain: cyberpay-account-web
+  config:
+    import:
+  cloud:
+    nacos:
+      config:
+        import-check:
+          enabled: false
+
+mybatis-plus:
+  mapper-locations: classpath:sqlmap/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

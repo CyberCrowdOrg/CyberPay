@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.trade.mapper.MerchantSupportCoinMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.trade.model.MerchantSupportCoin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
+    <result column="coin_name" jdbcType="VARCHAR" property="coinName" />
+    <result column="coin_type" jdbcType="VARCHAR" property="coinType" />
+    <result column="display_order" jdbcType="BIGINT" property="displayOrder" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, merchant_id, coin_name, coin_type, display_order, `status`, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_support_coin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from merchant_support_coin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.cyberpay.trade.model.MerchantSupportCoin">
+    insert into merchant_support_coin (id, merchant_id, coin_name, 
+      coin_type, display_order, `status`, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{merchantId,jdbcType=VARCHAR}, #{coinName,jdbcType=VARCHAR}, 
+      #{coinType,jdbcType=VARCHAR}, #{displayOrder,jdbcType=BIGINT}, #{status,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.cyberpay.trade.model.MerchantSupportCoin">
+    insert into merchant_support_coin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="coinName != null">
+        coin_name,
+      </if>
+      <if test="coinType != null">
+        coin_type,
+      </if>
+      <if test="displayOrder != null">
+        display_order,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null">
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null">
+        #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="displayOrder != null">
+        #{displayOrder,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.trade.model.MerchantSupportCoin">
+    update merchant_support_coin
+    <set>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="coinName != null">
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null">
+        coin_type = #{coinType,jdbcType=VARCHAR},
+      </if>
+      <if test="displayOrder != null">
+        display_order = #{displayOrder,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.trade.model.MerchantSupportCoin">
+    update merchant_support_coin
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      coin_name = #{coinName,jdbcType=VARCHAR},
+      coin_type = #{coinType,jdbcType=VARCHAR},
+      display_order = #{displayOrder,jdbcType=BIGINT},
+      `status` = #{status,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectOne" parameterType="org.cyberpay.trade.model.MerchantSupportCoin" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from merchant_support_coin
+    <where>
+      <if test="merchantId != null">
+        and merchant_id = #{merchantId,jdbcType=VARCHAR}
+      </if>
+      <if test="coinName != null">
+        and coin_name = #{coinName,jdbcType=VARCHAR}
+      </if>
+      <if test="coinType != null">
+        and coin_type = #{coinType,jdbcType=VARCHAR}
+      </if>
+      <if test="displayOrder != null">
+        and display_order = #{displayOrder,jdbcType=BIGINT}
+      </if>
+      <if test="status != null">
+        and `status` = #{status,jdbcType=CHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="updateTime != null">
+        and update_time = #{updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+</mapper>

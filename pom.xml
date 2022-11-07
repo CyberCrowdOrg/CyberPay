@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.cyberpay</groupId>
+    <artifactId>cyberpay-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.3</version>
+    </parent>
+
+    <modules>
+<!--        <module>cyber-notify</module>-->
+
+<!--        <module>cyber-pay-settle-api</module>-->
+<!--        <module>cyber-pay-settle-core</module>-->
+<!--        <module>cyber-pay-settle-web</module>-->
+        <module>cyberpay-account-api</module>
+        <module>cyberpay-account-core</module>
+        <module>cyberpay-account-web</module>
+        <module>cyberpay-crypto-api</module>
+        <module>cyberpay-crypto-core</module>
+        <module>cyberpay-crypto-web</module>
+<!--        <module>cyber-pay-router-api</module>-->
+<!--        <module>cyber-pay-router-core</module>-->
+<!--        <module>cyber-pay-router-web</module>-->
+        <module>cyberpay-trade-api</module>
+        <module>cyberpay-trade-core</module>
+        <module>cyberpay-trade-web</module>
+        <module>cyberpay-gateway</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+
+        <mybatis-plus-boot-starter.version>3.5.2</mybatis-plus-boot-starter.version>
+        <lombok.version>1.18.24</lombok.version>
+        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <redisson.version>3.17.7</redisson.version>
+
+
+        <cyberpay-account-api.version>1.0.0</cyberpay-account-api.version>
+        <cyberpay-account-core.version>1.0.0</cyberpay-account-core.version>
+        <cyberpay-account-web.version>1.0.0</cyberpay-account-web.version>
+
+        <cyberpay-trade-api.version>1.0.0</cyberpay-trade-api.version>
+        <cyberpay-trade-core.version>1.0.0</cyberpay-trade-core.version>
+        <cyberpay-trade-web.version>1.0.0</cyberpay-trade-web.version>
+
+        <cyberpay-crypto-api.version>1.0.0</cyberpay-crypto-api.version>
+        <cyberpay-crypto-core.version>1.0.0</cyberpay-crypto-core.version>
+        <cyberpay-crypto-web.version>1.0.0</cyberpay-crypto-web.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <version>2.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.14</version>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2021.0.4.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

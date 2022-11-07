@@ -1,0 +1,46 @@
+server:
+  port: 9201
+  servlet:
+    context-path: /cyberpay-crypto-web
+spring:
+  profiles:
+    active: dev
+  cache:
+    redis:
+      time-to-live: 1800000
+    type: redis
+  jmx:
+    default-domain: cyberpay-crypto-web
+  config:
+    import:
+  cloud:
+    nacos:
+      config:
+        import-check:
+          enabled: false
+
+#nacos:
+#  core:
+#    support:
+#      upgrade:
+#        from:
+#          1x: true
+mybatis-plus:
+  mapper-locations: classpath:sqlmap/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+#生成环境未花费查询API
+# LTC https://api.bitcore.io/api/LTC/mainnet/address/{0}?unspent=true
+# BCH https://api.bitcore.io/api/BCH/mainnet/address/{0}?unspent=true
+# BTC https://api.bitcore.io/api/BTC/mainnet/address/{0}?unspent=true
+
+#  [
+#    {"_id":"63423ff8cc4245aa6009c383","chain":"LTC","network":"mainnet","coinbase":false,"mintIndex":0,"spentTxid":"","mintTxid":"45bd018f3d4bf2f451dd369287c44c4054000d6efada297a06b0cc8309e22bd1","mintHeight":2347712,"spentHeight":-2,"address":"ltc1qqrqpneshreva37t348evvxdrllvx6pfd59l83u","script":"001400c019e6171e59d8f971a9f2c619a3ffd86d052d","value":30895700523,"confirmations":-1},
+#    {"_id":"63423ff0cc4245aa6009a83e","chain":"LTC","network":"mainnet","coinbase":false,"mintIndex":1,"spentTxid":"","mintTxid":"0eef4d4aae239226aa60783d54d850f78e3d31425656a6f750bf6414028c52ba","mintHeight":2347712,"spentHeight":-2,"address":"ltc1qqrqpneshreva37t348evvxdrllvx6pfd59l83u","script":"001400c019e6171e59d8f971a9f2c619a3ffd86d052d","value":25577647842,"confirmations":-1},
+#    {"_id":"63423fc2cc4245aa600903a6","chain":"LTC","network":"mainnet","coinbase":false,"mintIndex":1,"spentTxid":"","mintTxid":"99812a57a968d57ac4082dd61622124db719ba706f1a0cc95647842aabc678ce","mintHeight":2347712,"spentHeight":-2,"address":"ltc1qqrqpneshreva37t348evvxdrllvx6pfd59l83u","script":"001400c019e6171e59d8f971a9f2c619a3ffd86d052d","value":187372154256,"confirmations":-1},
+#    {"_id":"63423e5bcc4245aa6003bf82","chain":"LTC","network":"mainnet","coinbase":false,"mintIndex":1,"spentTxid":"","mintTxid":"70d1f8d648e8770a6ffba83e19552c3a0152a09f9d4e2c9d66df56ad5dfa3144","mintHeight":2347710,"spentHeight":-2,"address":"ltc1qqrqpneshreva37t348evvxdrllvx6pfd59l83u","script":"001400c019e6171e59d8f971a9f2c619a3ffd86d052d","value":273412410137,"confirmations":-1},
+#    {"_id":"63411ec5cc4245aa6092aaeb","chain":"LTC","network":"mainnet","coinbase":false,"mintIndex":0,"spentTxid":"","mintTxid":"294b0b75fa1210012d2562f216ad6a3d6eb058c9a2a5166628540707e106f168","mintHeight":2347214,"spentHeight":-2,"address":"ltc1qqrqpneshreva37t348evvxdrllvx6pfd59l83u","script":"001400c019e6171e59d8f971a9f2c619a3ffd86d052d","value":3917,"confirmations":-1}
+#  ]

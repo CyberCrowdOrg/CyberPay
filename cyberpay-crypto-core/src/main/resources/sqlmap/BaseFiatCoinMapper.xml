@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.crypto.mapper.BaseFiatCoinMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.crypto.model.BaseFiatCoin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fiat_coin_id" jdbcType="VARCHAR" property="fiatCoinId" />
+    <result column="fiat_coin_name" jdbcType="VARCHAR" property="fiatCoinName" />
+    <result column="fiat_coin_uint" jdbcType="VARCHAR" property="fiatCoinUint" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="fiat_coin_image" jdbcType="VARCHAR" property="fiatCoinImage" />
+    <result column="is_available" jdbcType="CHAR" property="isAvailable" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="operator_note" jdbcType="VARCHAR" property="operatorNote" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap id="FiatSupportResultMap" type="org.cyberpay.crypto.dto.FiatSupportDto">
+    <result column="fiat_coin_id" jdbcType="VARCHAR" property="fiatCoinId" />
+    <result column="fiat_coin_name" jdbcType="VARCHAR" property="fiatCoinName" />
+    <result column="fiat_coin_uint" jdbcType="VARCHAR" property="fiatCoinUint" />
+    <result column="symbol" jdbcType="VARCHAR" property="symbol" />
+    <result column="fiat_coin_image" jdbcType="VARCHAR" property="fiatCoinImage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fiat_coin_id, fiat_coin_name, fiat_coin_uint, symbol, fiat_coin_image, is_available, 
+    `operator`, operator_note, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_fiat_coin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_fiat_coin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.cyberpay.crypto.model.BaseFiatCoin">
+    insert into base_fiat_coin (id, fiat_coin_id, fiat_coin_name, 
+      fiat_coin_uint, symbol, fiat_coin_image, 
+      is_available, `operator`, operator_note, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{fiatCoinId,jdbcType=VARCHAR}, #{fiatCoinName,jdbcType=VARCHAR}, 
+      #{fiatCoinUint,jdbcType=VARCHAR}, #{symbol,jdbcType=VARCHAR}, #{fiatCoinImage,jdbcType=VARCHAR}, 
+      #{isAvailable,jdbcType=CHAR}, #{operator,jdbcType=VARCHAR}, #{operatorNote,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.cyberpay.crypto.model.BaseFiatCoin">
+    insert into base_fiat_coin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fiatCoinId != null">
+        fiat_coin_id,
+      </if>
+      <if test="fiatCoinName != null">
+        fiat_coin_name,
+      </if>
+      <if test="fiatCoinUint != null">
+        fiat_coin_uint,
+      </if>
+      <if test="symbol != null">
+        symbol,
+      </if>
+      <if test="fiatCoinImage != null">
+        fiat_coin_image,
+      </if>
+      <if test="isAvailable != null">
+        is_available,
+      </if>
+      <if test="operator != null">
+        `operator`,
+      </if>
+      <if test="operatorNote != null">
+        operator_note,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fiatCoinId != null">
+        #{fiatCoinId,jdbcType=VARCHAR},
+      </if>
+      <if test="fiatCoinName != null">
+        #{fiatCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="fiatCoinUint != null">
+        #{fiatCoinUint,jdbcType=VARCHAR},
+      </if>
+      <if test="symbol != null">
+        #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="fiatCoinImage != null">
+        #{fiatCoinImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isAvailable != null">
+        #{isAvailable,jdbcType=CHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorNote != null">
+        #{operatorNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.crypto.model.BaseFiatCoin">
+    update base_fiat_coin
+    <set>
+      <if test="fiatCoinId != null">
+        fiat_coin_id = #{fiatCoinId,jdbcType=VARCHAR},
+      </if>
+      <if test="fiatCoinName != null">
+        fiat_coin_name = #{fiatCoinName,jdbcType=VARCHAR},
+      </if>
+      <if test="fiatCoinUint != null">
+        fiat_coin_uint = #{fiatCoinUint,jdbcType=VARCHAR},
+      </if>
+      <if test="symbol != null">
+        symbol = #{symbol,jdbcType=VARCHAR},
+      </if>
+      <if test="fiatCoinImage != null">
+        fiat_coin_image = #{fiatCoinImage,jdbcType=VARCHAR},
+      </if>
+      <if test="isAvailable != null">
+        is_available = #{isAvailable,jdbcType=CHAR},
+      </if>
+      <if test="operator != null">
+        `operator` = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorNote != null">
+        operator_note = #{operatorNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.crypto.model.BaseFiatCoin">
+    update base_fiat_coin
+    set fiat_coin_id = #{fiatCoinId,jdbcType=VARCHAR},
+      fiat_coin_name = #{fiatCoinName,jdbcType=VARCHAR},
+      fiat_coin_uint = #{fiatCoinUint,jdbcType=VARCHAR},
+      symbol = #{symbol,jdbcType=VARCHAR},
+      fiat_coin_image = #{fiatCoinImage,jdbcType=VARCHAR},
+      is_available = #{isAvailable,jdbcType=CHAR},
+      `operator` = #{operator,jdbcType=VARCHAR},
+      operator_note = #{operatorNote,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectBasicExchangeRateCoinList" resultType="java.util.Map">
+    select fiat_coin_id as fiatCoinId,symbol as fiatSymbol from base_fiat_coin where is_available = '1'
+
+  </select>
+
+  <select id="queryFiatSupportList" resultMap="FiatSupportResultMap">
+    SELECT
+      fiat_coin_id,
+      fiat_coin_name,
+      fiat_coin_uint,
+      symbol,
+      fiat_coin_image
+    FROM
+      base_fiat_coin
+    WHERE
+      is_available = '1'
+  </select>
+
+  <select id="findFiatCoin" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from base_fiat_coin
+    <where>
+      <if test="param1 != null and '' != param1 ">
+        AND fiat_coin_id = #{param1}
+      </if>
+      <if test="param2 != null and '' != param2 ">
+        AND symbol = #{param2}
+      </if>
+    </where>
+  </select>
+</mapper>

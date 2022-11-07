@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cyberpay.crypto.mapper.CoinExchangeRateMapper">
+  <resultMap id="BaseResultMap" type="org.cyberpay.crypto.model.CoinExchangeRate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="from_coin_id" jdbcType="VARCHAR" property="fromCoinId" />
+    <result column="to_coin_id" jdbcType="INTEGER" property="toCoinId" />
+    <result column="from_symbol" jdbcType="VARCHAR" property="fromSymbol" />
+    <result column="to_symbol" jdbcType="VARCHAR" property="toSymbol" />
+    <result column="exchange_rate" jdbcType="DECIMAL" property="exchangeRate" />
+    <result column="exchange_type" jdbcType="VARCHAR" property="exchangeType" />
+    <result column="exchange_source" jdbcType="VARCHAR" property="exchangeSource" />
+    <result column="extend" jdbcType="VARCHAR" property="extend" />
+    <result column="extend2" jdbcType="VARCHAR" property="extend2" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, from_coin_id, to_coin_id, from_symbol, to_symbol, exchange_rate, exchange_type, 
+    exchange_source, extend, extend2, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from coin_exchange_rate
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from coin_exchange_rate
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="org.cyberpay.crypto.model.CoinExchangeRate">
+    insert into coin_exchange_rate (id, from_coin_id, to_coin_id, 
+      from_symbol, to_symbol, exchange_rate, 
+      exchange_type, exchange_source, extend, 
+      extend2, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{fromCoinId,jdbcType=VARCHAR}, #{toCoinId,jdbcType=INTEGER}, 
+      #{fromSymbol,jdbcType=VARCHAR}, #{toSymbol,jdbcType=VARCHAR}, #{exchangeRate,jdbcType=DECIMAL}, 
+      #{exchangeType,jdbcType=VARCHAR}, #{exchangeSource,jdbcType=VARCHAR}, #{extend,jdbcType=VARCHAR}, 
+      #{extend2,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.cyberpay.crypto.model.CoinExchangeRate">
+    insert into coin_exchange_rate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fromCoinId != null">
+        from_coin_id,
+      </if>
+      <if test="toCoinId != null">
+        to_coin_id,
+      </if>
+      <if test="fromSymbol != null">
+        from_symbol,
+      </if>
+      <if test="toSymbol != null">
+        to_symbol,
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate,
+      </if>
+      <if test="exchangeType != null">
+        exchange_type,
+      </if>
+      <if test="exchangeSource != null">
+        exchange_source,
+      </if>
+      <if test="extend != null">
+        extend,
+      </if>
+      <if test="extend2 != null">
+        extend2,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fromCoinId != null">
+        #{fromCoinId,jdbcType=VARCHAR},
+      </if>
+      <if test="toCoinId != null">
+        #{toCoinId,jdbcType=INTEGER},
+      </if>
+      <if test="fromSymbol != null">
+        #{fromSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="toSymbol != null">
+        #{toSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null">
+        #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="exchangeType != null">
+        #{exchangeType,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeSource != null">
+        #{exchangeSource,jdbcType=VARCHAR},
+      </if>
+      <if test="extend != null">
+        #{extend,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.cyberpay.crypto.model.CoinExchangeRate">
+    update coin_exchange_rate
+    <set>
+      <if test="fromCoinId != null">
+        from_coin_id = #{fromCoinId,jdbcType=VARCHAR},
+      </if>
+      <if test="toCoinId != null">
+        to_coin_id = #{toCoinId,jdbcType=INTEGER},
+      </if>
+      <if test="fromSymbol != null">
+        from_symbol = #{fromSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="toSymbol != null">
+        to_symbol = #{toSymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="exchangeType != null">
+        exchange_type = #{exchangeType,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangeSource != null">
+        exchange_source = #{exchangeSource,jdbcType=VARCHAR},
+      </if>
+      <if test="extend != null">
+        extend = #{extend,jdbcType=VARCHAR},
+      </if>
+      <if test="extend2 != null">
+        extend2 = #{extend2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.cyberpay.crypto.model.CoinExchangeRate">
+    update coin_exchange_rate
+    set from_coin_id = #{fromCoinId,jdbcType=VARCHAR},
+      to_coin_id = #{toCoinId,jdbcType=INTEGER},
+      from_symbol = #{fromSymbol,jdbcType=VARCHAR},
+      to_symbol = #{toSymbol,jdbcType=VARCHAR},
+      exchange_rate = #{exchangeRate,jdbcType=DECIMAL},
+      exchange_type = #{exchangeType,jdbcType=VARCHAR},
+      exchange_source = #{exchangeSource,jdbcType=VARCHAR},
+      extend = #{extend,jdbcType=VARCHAR},
+      extend2 = #{extend2,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findExchangeRate" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List"/> from coin_exchange_rate where from_symbol = #{param1} and to_symbol = #{param2} and exchange_source = #{param3}
+  </select>
+
+  <select id="findExchangeRateList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from coin_exchange_rate where from_symbol = #{param1} and to_symbol = #{param2}
+  </select>
+</mapper>
