@@ -37,6 +37,11 @@ public class BaseCryptoCoinDto implements Serializable {
      */
     private String isDefault;
 
+    /**
+     * 是否可用
+     */
+    private String isAvailable;
+
     private String extend;
 
     private String extend2;

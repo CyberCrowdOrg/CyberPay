@@ -24,7 +24,6 @@ public class NodeRequestDto implements Serializable {
     private String toAddress;
     private BigDecimal transferAmount;
     private String contractAddress;
-    private String chainType;
 
     //交易结果查询
     private String transHash;

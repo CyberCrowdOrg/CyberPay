@@ -1,15 +1,16 @@
-package org.cyberpay.crypto.node.ethereum;
+package org.cyberpay.crypto.node.optimism;
 
 import com.alibaba.fastjson2.JSON;
 import org.cyberpay.crypto.enums.ReturnCodeEnum;
 import org.cyberpay.crypto.node.*;
-import org.cyberpay.crypto.node.Web3jNodeFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.web3j.crypto.*;
+import org.web3j.crypto.Bip39Wallet;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
@@ -18,16 +19,16 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-@Component(value = "ethereumNodeInterface")
-public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInterface {
+@Component(value = "optimismNodeInterface")
+public class OptimismNodeInterface extends Web3jNodeFunction implements NodeInterface {
+
+    private Logger logger = LoggerFactory.getLogger(OptimismNodeInterface.class);
 
     @Value("${wallet.file-path.ethereum}")
     private String walletFilePath;
 
-    @Value("${gas-limit.ethereum}")
+    @Value("${gas-limit.optimism}")
     private String gasLimit;
-
-    private Logger logger = LoggerFactory.getLogger(EthereumNodeInterface.class);
 
     @Override
     public NodeResponseDto generateAddress(NodeRequestDto nodeRequestDto) {
@@ -62,7 +63,7 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
             nodeResponseDto.setMnemonics(memorizingWords);
             nodeResponseDto.setWalletFilePath(wallet.getFilename());
         }catch (Exception e){
-            logger.error("ethereum 钱包生成接口执行异常:{}",e.getMessage(),e);
+            logger.error("optimism 钱包生成接口执行异常:{}",e.getMessage(),e);
             nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,null);
         }
         return nodeResponseDto;
@@ -71,16 +72,15 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
     @Override
     public NodeResponseDto queryBalance(NodeRequestDto nodeRequestDto) {
         NodeResponseDto nodeResponseDto = new NodeResponseDto();
-        logger.info("ethereum 余额查询接口,请求入参:{}",JSON.toJSONString(nodeRequestDto));
+        logger.info("optimism 余额查询接口,请求入参:{}", JSON.toJSONString(nodeRequestDto));
 
         String address = nodeRequestDto.getAddress();
         String contractAddress = nodeRequestDto.getContractAddress();
         Long tokenDecimal = nodeRequestDto.getTokenDecimal();
         Long coinDecimal = nodeRequestDto.getCoinDecimal();
         boolean isToken = StringUtils.hasText(contractAddress) ? true:false;
-
         try {
-            this.EthereumEnvironment();
+            this.OptimismEnvironment();
             Web3JGetBalanceRes web3JGetBalanceRes = queryBalance(address, isToken, contractAddress);
 
             BigDecimal ethBalance = Convert.fromWei(web3JGetBalanceRes.toString(), Convert.Unit.ETHER);
@@ -89,7 +89,7 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
                     .divide(new BigDecimal(tokenDecimal),coinDecimal.intValue(),BigDecimal.ROUND_HALF_DOWN);
             nodeResponseDto.setTokenBalance(tokenBalance);
         }catch (Exception e){
-            logger.error("ethereum 余额查询接口,执行异常:{}",e.getMessage(),e);
+            logger.error("optimism 余额查询接口,执行异常:{}",e.getMessage(),e);
             nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,"ethereum余额查询异常");
         }
         return nodeResponseDto;
@@ -98,7 +98,7 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
     @Override
     public NodeResponseDto sendTransaction(NodeRequestDto nodeRequestDto) {
         NodeResponseDto nodeResponseDto = new NodeResponseDto();
-        logger.info("ethereum 转账交易,请求入参:{}",JSON.toJSONString(nodeRequestDto));
+        logger.info("optimism 转账交易,请求入参:{}",JSON.toJSONString(nodeRequestDto));
         String fromAddress = nodeRequestDto.getFromAddress();
         String toAddress = nodeRequestDto.getToAddress();
         String privateKey = nodeRequestDto.getFromPrivateKey();
@@ -111,21 +111,21 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
         try {
             BigInteger transferAmount = nodeRequestDto.getTransferAmount().multiply(new BigDecimal(tokenDecimal)).toBigInteger();
             //发起转账
-            this.EthereumEnvironment();
+            this.OptimismEnvironment();
             String txHash = this.sendTransaction(privateKey, fromAddress, toAddress,
                     transferAmount,isToken, contractAddress,new BigInteger(gasLimit));
             if (!StringUtils.hasText(txHash)) {
-                logger.info("ethereum 转账交易请求失败");
+                logger.info("optimism 转账交易请求失败");
                 nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,"转账交易请求失败");
                 return nodeResponseDto;
             }
             //返回交易hash
             nodeResponseDto.setTransHash(txHash);
         }catch (Exception e){
-            logger.error("ethereum 转账交易,执行异常:{}",e.getMessage(),e);
-            nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,"ethereum 转账交易异常");
+            logger.error("optimism 转账交易,执行异常:{}",e.getMessage(),e);
+            nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,"optimism 转账交易异常");
         }
-        logger.info("ethereum 转账交易,响应结果:{}",JSON.toJSONString(nodeResponseDto));
+        logger.info("optimism 转账交易,响应结果:{}",JSON.toJSONString(nodeResponseDto));
         return nodeResponseDto;
     }
 
@@ -133,9 +133,9 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
     public NodeResponseDto confirmTransaction(NodeRequestDto nodeRequestDto) {
         NodeResponseDto nodeResponseDto = new NodeResponseDto();
         String transHash = nodeRequestDto.getTransHash();
-
+        //optimism 查询一次没有问题就成功
         try {
-            this.EthereumEnvironment();
+            this.OptimismEnvironment();
             TransactionReceipt receipt = this.confirmTransaction(transHash);
             if (null != receipt) {
                 String status = receipt.getStatus();
@@ -148,19 +148,18 @@ public class EthereumNodeInterface extends Web3jNodeFunction implements NodeInte
                     String transactionHash = receipt.getTransactionHash();
                     String fromAddress = receipt.getFrom();
 
-                    BigInteger latestBlockNumber = this.getLatestBlockNumber();
                     nodeResponseDto.setStatus(true);
                     nodeResponseDto.setTransHash(transactionHash);
                     nodeResponseDto.setBlockHash(blockHash);
-                    nodeResponseDto.setConfirm(latestBlockNumber.subtract(blockNumber).longValue());
+                    nodeResponseDto.setConfirm(2);
                     nodeResponseDto.setFromAddress(fromAddress);
                     nodeResponseDto.setFee(fee);
-                    logger.info("ethereum 交易确认接口,响应结果:{}", JSON.toJSONString(nodeResponseDto));
+                    logger.info("optimism 交易确认接口,响应结果:{}", JSON.toJSONString(nodeResponseDto));
                 }
             }
         }catch (Exception e){
-            logger.info("ethereum 交易确认接口,执行异常:{}",e.getMessage(),e);
-            nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,"ethereum 交易确认异常");
+            logger.info("optimism 交易确认接口,执行异常:{}",e.getMessage(),e);
+            nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,"optimism 交易确认异常");
         }
         return nodeResponseDto;
     }

@@ -1,13 +1,13 @@
 package org.cyberpay.crypto.service;
 
+import org.cyberpay.crypto.request.CryptoOrderSubmitPayReq;
 import org.cyberpay.crypto.request.CryptoPayOrderReq;
 import org.cyberpay.crypto.request.CryptoPreOrderReq;
 import org.cyberpay.crypto.request.CryptoRefundOrderReq;
-import org.cyberpay.crypto.request.CryptoOrderSubmitPayReq;
+import org.cyberpay.crypto.response.CryptoOrderSubmitPayRes;
 import org.cyberpay.crypto.response.CryptoPayOrderRes;
 import org.cyberpay.crypto.response.CryptoPreOrderRes;
 import org.cyberpay.crypto.response.CryptoRefundOrderRes;
-import org.cyberpay.crypto.response.CryptoOrderSubmitPayRes;
 
 public interface CryptoOrderService {
 
@@ -25,14 +25,13 @@ public interface CryptoOrderService {
 
     /**
      * 订单交易确认
-     * @param coin
      * @param networkCode
      */
-    void confirmOrder(String coin,String networkCode);
+    void confirmOrder(String networkCode);
 
     /**
      * 订单关闭
-     * @param timeout
+     * @param networkCode
      */
-    void closeOrder(String coin,String networkCode,long timeout);
+    void closeOrder(String networkCode);
 }

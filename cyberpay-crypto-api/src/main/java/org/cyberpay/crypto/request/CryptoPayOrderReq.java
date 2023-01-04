@@ -19,7 +19,6 @@ public class CryptoPayOrderReq implements Serializable {
     private String orderCoin;
     //订单金额
     private BigDecimal orderAmount;
-
     //收款币种
     private String receiveCoin;
     //收款网络代码

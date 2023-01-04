@@ -48,27 +48,26 @@ public class BinanceNodeInterface extends BaseNodeFunction implements NodeInterf
             nodeResponseDto.setMnemonics(String.join(" ", mnemonicCodeWords));
 //            nodeResponseDto.setPublicKey("");
         }catch (Exception e){
-            logger.error("binance bsc 地址生成,执行异常:{}",e.getMessage(),e);
+            logger.error("binance chain 地址生成,执行异常:{}",e.getMessage(),e);
             nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,null);
         }
-        logger.info("binance bsc 地址生成,响应结果:{}", JSON.toJSONString(nodeRequestDto));
+        logger.info("binance chain 地址生成,响应结果:{}", JSON.toJSONString(nodeRequestDto));
         return nodeResponseDto;
     }
 
     @Override
     public NodeResponseDto queryBalance(NodeRequestDto nodeRequestDto) {
         NodeResponseDto nodeResponseDto = new NodeResponseDto();
-        logger.info("binance bsc 余额查询,请求入参:{}",JSON.toJSONString(nodeRequestDto));
+        logger.info("binance chain 余额查询,请求入参:{}",JSON.toJSONString(nodeRequestDto));
         String address = nodeRequestDto.getAddress();
         String symbol = nodeRequestDto.getSymbol();
-
         try {
             BinanceDexApiNodeClient client = BinanceDexApiClientFactory.newInstance().newNodeRpcClient(
                     networkParameter.getNodeUrl(), networkParameter.getHrp(), networkParameter.getValHrp());
 
             Account account = client.getAccount(address);
             if (null == account || (null == account.getBalances() || account.getBalances().size() == 0)) {
-                logger.info("binance bsc 余额查询失败,返回null值");
+                logger.info("binance chain 余额查询失败,返回null值");
                 nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL, null);
                 return nodeResponseDto;
             }
@@ -87,17 +86,17 @@ public class BinanceNodeInterface extends BaseNodeFunction implements NodeInterf
                 }
             }
         }catch (Exception e){
-            logger.error("binance bsc 余额查询,执行异常:{}",e.getMessage(),e);
+            logger.error("binance chain 余额查询,执行异常:{}",e.getMessage(),e);
             nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,null);
         }
-        logger.info("binance bsc 余额查询,响应结果:{}",JSON.toJSONString(nodeResponseDto));
+        logger.info("binance chain 余额查询,响应结果:{}",JSON.toJSONString(nodeResponseDto));
         return nodeResponseDto;
     }
 
     @Override
     public NodeResponseDto sendTransaction(NodeRequestDto nodeRequestDto) {
         NodeResponseDto nodeResponseDto = new NodeResponseDto();
-        logger.info("binance bsc 转账交易,请求入参:{}",JSON.toJSONString(nodeRequestDto));
+        logger.info("binance chain 转账交易,请求入参:{}",JSON.toJSONString(nodeRequestDto));
 
         String fromAddress = nodeRequestDto.getFromAddress();
         String fromPrivateKey = nodeRequestDto.getFromPrivateKey();
@@ -117,7 +116,7 @@ public class BinanceNodeInterface extends BaseNodeFunction implements NodeInterf
             transfer.setToAddress(toAddress);
             transfer.setAmount(transferAmount.toString());
 
-            TransactionOption option = new TransactionOption("CyberPay Test",1,null);
+            TransactionOption option = new TransactionOption("CyberPay",1,null);
             List<TransactionMetadata> transferRes = client.transfer(transfer, wallet, option, true);
             TransactionMetadata transactionMetadata = transferRes.get(0);
             boolean ok = transactionMetadata.isOk();
@@ -127,21 +126,21 @@ public class BinanceNodeInterface extends BaseNodeFunction implements NodeInterf
                 nodeResponseDto.setTransHash(hash);
             }else{
                 String log = transactionMetadata.getLog();
-                logger.info("binance bsc 转账交易,转账失败:{}",log);
+                logger.info("binance chain 转账交易,转账失败:{}",log);
                 nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,log);
             }
         }catch (Exception e){
-            logger.error("binance bsc 转账交易,执行异常:{}",e.getMessage(),e);
+            logger.error("binance chain 转账交易,执行异常:{}",e.getMessage(),e);
             nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL,null);
         }
-        logger.info("binance bsc 转账交易,响应结果:{}",JSON.toJSONString(nodeResponseDto));
+        logger.info("binance chain 转账交易,响应结果:{}",JSON.toJSONString(nodeResponseDto));
         return nodeResponseDto;
     }
 
     @Override
     public NodeResponseDto confirmTransaction(NodeRequestDto nodeRequestDto) {
         NodeResponseDto nodeResponseDto = new NodeResponseDto();
-        logger.info("binance bsc 交易结果确认查询,请求入参:{}",JSON.toJSONString(nodeRequestDto));
+        logger.info("binance chain 交易结果确认查询,请求入参:{}",JSON.toJSONString(nodeRequestDto));
         String transHash = nodeRequestDto.getTransHash();
 
         try {
@@ -164,14 +163,14 @@ public class BinanceNodeInterface extends BaseNodeFunction implements NodeInterf
                 nodeResponseDto.setConfirm(1L);//BSC链1个区块确认就行了
             } else {
                 String log = transaction.getLog();
-                logger.info("binance bsc 交易结果确认查询,请求节点失败:{}", log);
+                logger.info("binance chain 交易结果确认查询,请求节点失败:{}", log);
                 nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL, log);
             }
         }catch (Exception e){
-            logger.error("binance bsc 交易结果确认查询,执行异常:{}",e.getMessage(),e);
+            logger.error("binance chain 交易结果确认查询,执行异常:{}",e.getMessage(),e);
             nodeResponseDto.setReturnCodeEnum(ReturnCodeEnum.FAIL, null);
         }
-        logger.info("binance bsc 交易结果确认查询,响应结果:{}",JSON.toJSONString(nodeResponseDto));
+        logger.info("binance chain 交易结果确认查询,响应结果:{}",JSON.toJSONString(nodeResponseDto));
         return nodeResponseDto;
     }
 }

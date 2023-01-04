@@ -16,11 +16,11 @@ public class CryptoSupportDto implements Serializable {
     @ApiModelProperty(value = "加密币代码")
     private String symbol;
     @ApiModelProperty(value = "加密币全称")
-    private String cryptoFullName;
+    private String fullName;
     @ApiModelProperty(value = "加密币图片")
-    private String cryptoImage;
+    private String coinImage;
     @ApiModelProperty(value = "加密币icon图片,移动端使用")
-    private String cryptoIconImage;
+    private String coinIconImage;
 
     @ApiModelProperty(value = "加密币支持网络列表")
     private List<SupportNetworkDto> supportNetworks;

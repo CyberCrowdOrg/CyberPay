@@ -73,7 +73,7 @@ public class HttpClientUtil {
 	 * @param header        请求头
 	 * @return 响应文本
 	 */
-	public static String sendHttp(org.cyberpay.crypto.utils.HttpRequestMethod.HttpRequestMethodEnum requestMethod, String url, Map<String, Object> params,
+	public static String sendHttp(HttpRequestMethod.HttpRequestMethodEnum requestMethod, String url, Map<String, Object> params,
                                   Map<String, String> header) {
 		// 1、创建一个HttpClient对象;
 		CloseableHttpClient httpClient = HttpClients.createDefault();

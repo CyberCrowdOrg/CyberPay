@@ -7,4 +7,6 @@ public interface CryptoSupportNetworkService {
 
     CryptoSupportNetworkDto findCryptoSupportNetwork(String symbol,String networkCode,String contract);
 
+    void cacheAllContarct();
+
 }

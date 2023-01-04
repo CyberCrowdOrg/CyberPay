@@ -30,4 +30,19 @@ public enum CoinDecimalEnum {
         return to.longValue();
     }
 
+    public Long getDecimal() {
+        return decimal;
+    }
+
+    public void setDecimal(Long decimal) {
+        this.decimal = decimal;
+    }
+
+    public int getUint() {
+        return uint;
+    }
+
+    public void setUint(int uint) {
+        this.uint = uint;
+    }
 }

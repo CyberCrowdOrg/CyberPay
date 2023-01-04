@@ -83,12 +83,6 @@ public class CryptoOrder implements Serializable {
      * 订单状态,unpaid 未付款 unconfirmed 未确认  success 付款成功 msuccess 多付成功 lsuccess 少付成功 close 超时关闭
      */
     private String status;
-
-    /**
-     * 商户前端重定向地址
-     */
-    private String redirectUrl;
-
     /**
      * 付款成功时间
      */

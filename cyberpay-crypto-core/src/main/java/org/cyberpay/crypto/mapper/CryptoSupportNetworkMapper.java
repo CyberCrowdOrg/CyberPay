@@ -15,4 +15,8 @@ public interface CryptoSupportNetworkMapper extends MyBatisBaseDao<CryptoSupport
     CryptoSupportNetwork queryAvailableCryptoSupportNetwork(String symbol,String networkCode);
 
     CryptoSupportNetwork findCryptoSupportNetwork(String symbol,String networkCode,String contract);
+
+    List<String> selectAllContractNetwork();
+
+    List<String> selectAllContractList(String networkCode);
 }

@@ -20,4 +20,13 @@ public interface CryptoOrderExtendMapper extends MyBatisBaseDao<CryptoOrderExten
      * @return
      */
     List<CryptoOrderExtend> findUnconfirmedOrderExtend(String coin, String networkCode);
+
+    /**
+     * 更新订单扩展数据 区块信息
+     * @param bizFlowNo
+     * @param blockNumber
+     * @param confirm
+     * @return
+     */
+    Integer updateBlockByBizFlowNo(String bizFlowNo,Long blockNumber,Long confirm,String blockHash);
 }
